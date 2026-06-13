@@ -1,0 +1,62 @@
+# =============================================================
+#  .github/workflows/build.yml
+#  thank god for this workflow thing on github, crazy took my like 3 hours 
+#  to understand but still crazy.
+# =============================================================
+
+name: Build ZMK Firmware
+
+on:
+  push:                            
+  pull_request:                    
+  workflow_dispatch:               
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout config repo
+        uses: actions/checkout@v4
+        with:
+          path: zmk-config         # Puts files in a folder called zmk-config
+
+      - name: Checkout ZMK source
+        uses: actions/checkout@v4
+        with:
+          repository: zmkfirmware/zmk   # Official ZMK repo
+          ref: main                      # Use the main/latest branch
+          path: zmk                      # Save it in a folder called zmk
+          fetch-depth: 0
+
+      #Install the Zephyr sdk and dependencies ─────────────
+      - name: Install Zephyr SDK and dependencies
+        uses: zephyrproject-rtos/action-zephyr-setup@v1
+        with:
+          app-path: zmk
+          manifest-file-name: app/west.yml
+          sdk-version: 0.16.8       # I think this was the stable version (I hope... dont flame me im too lazy to check again )
+          toolchains: arm-zephyr-eabi
+
+      - name: Copy shield files into ZMK
+        run: |
+          cp -r zmk-config/config/boards/shields/my_keyboard \
+                zmk/app/boards/shields/my_keyboard
+
+      - name: Build firmware
+        working-directory: zmk/app
+        run: |
+          west build \
+            --pristine \
+            -b nice_nano_v2 \
+            -- -DSHIELD=my_keyboard \
+               -DZMK_CONFIG="${GITHUB_WORKSPACE}/zmk-config/config"
+
+      # God plese make this work pleaseeeeee work to make the u2f file
+      # to action "Artifacts" and download "my_keyboard_firmware.zip" (as far i understand thats where it should apear where the file would be for flashing, wow this is a long comment aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa anyways)
+      - name: Upload firmware artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: my_keyboard_firmware
+          path: zmk/app/build/zephyr/zmk.uf2
+          if-no-files-found: error   # just in caseeeeeeeeee, cuz i know i did something wrong
