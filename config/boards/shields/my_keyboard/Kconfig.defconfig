@@ -1,0 +1,13 @@
+# ====================================================
+#  Kconfig.defconfig
+#  Sets the USB product name and keyboard identity.
+# =====================================================
+if SHIELD_MY_KEYBOARD
+
+config ZMK_KEYBOARD_NAME
+    default "Supaaaa Keyboard"    #might change it to a serious one later (prolly not)
+
+config ZMK_USB_BOOT
+    default y
+
+endif
