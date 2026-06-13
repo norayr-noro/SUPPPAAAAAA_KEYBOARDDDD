@@ -1,0 +1,7 @@
+# ==========================
+#  Kconfig.shield
+#  ZMK's build system reads this to know the godam keyboard exists. genuinely why dose this exist
+# ===========================
+
+config SHIELD_MY_KEYBOARD
+    def_bool $(shields_list_contains,my_keyboard)
