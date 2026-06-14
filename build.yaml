@@ -1,10 +1,9 @@
 # =============================================================
 #  build.yaml
-#
 #  This file tells ZMK's official build workflow exactly what
-#  (as far as i understand) to compile. Each entry under "targets" is one firmware file.
+#  (as far as I understand) to compile. Each entry under "targets" is one firmware file.
 # =============================================================
 
 include:
-  - board: nice_nano_v2
+  - board: nice_nano
     shield: my_keyboard
