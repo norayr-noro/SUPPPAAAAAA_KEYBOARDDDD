@@ -44,7 +44,7 @@
    &none   &none   &none   &none   &none   &none   &none   &none   &none   &none   &none   &none   &none   &none   &none
 
             // Encoder: rotate = volume up/down
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+            sensor-bindings = <&inc_dec_kp (C_VOL_UP) (C_VOL_DN)>;
         };
 
         // ── LAYER 1 — FN (function keys, media, RGB) ─────────
