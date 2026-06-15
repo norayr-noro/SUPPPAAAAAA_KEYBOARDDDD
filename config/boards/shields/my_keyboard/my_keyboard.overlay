@@ -9,8 +9,8 @@
 // ── I2C Bus (SDA = pin 20 = P0.17, SCL = pin 21 = P0.15) ────
 &i2c0 {
     status = "okay";
-    sda-pin = <17>;
-    scl-pin = <15>;
+    sda-gpios = <&gpio0 17 0>;
+    scl-gpios = <&gpio0 15 0>;
 
     // ── OLED (SSD1306 0.91" 128x32) ──────────────────────────
     oled: ssd1306@3c {
