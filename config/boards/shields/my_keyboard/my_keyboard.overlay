@@ -101,7 +101,7 @@
     };
 
     // ── Rotary Encoder (A=pin19, B=pin18) ───────
-    encoder: encoder {
+    &encoder: encoder {
         compatible = "alps,ec11";
         a-gpios = <&gpio1 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&gpio1 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
