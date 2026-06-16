@@ -49,7 +49,6 @@
         zmk,kscan     = &kscan0;
         zmk,matrix-transform = &default_transform;
         zmk,display   = &oled;
-        zmk,underglow = &led_strip;
         zmk,battery   = &vbatt;
     };
 
